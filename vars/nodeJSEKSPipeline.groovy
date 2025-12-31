@@ -11,8 +11,8 @@ def call (Map configMap){
             COURSE     = "Jenkins"
             appVersion = ""
             ACC_ID     = "231298815636"
-            PROJECT    = "roboshop"
-            COMPONENT  = "catalogue"
+            PROJECT    = configMap.get("project")
+            COMPONENT  = configMap.get("component")
         }
 
         options {
@@ -95,6 +95,19 @@ def call (Map configMap){
                         docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
                         docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
                         """
+                    }
+                }
+            }
+            stage('Trigger DEV Deploy') {
+                steps {
+                    script {
+                        build job: "../catalogue-deploy",
+                            wait: false, // Wait for completion
+                            propagate: false, // Propagate status
+                            parameters: [
+                                string(name: 'appVersion', value: "${appVersion}"),
+                                string(name: 'deploy_to', value: "dev")
+                            ]
                     }
                 }
             }
