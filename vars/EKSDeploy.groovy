@@ -39,6 +39,55 @@ def call (Map configMap){
                         }
                     }
                 }
+            }
+            stage('Functional Testing'){
+                when{
+                    expression { deploy_to == "dev" }
+                }
+                steps{
+                    script{
+                        sh """
+                            echo "functional tests in DEV environment"
+                        """
+                    }
+                }
+            }
+            stage('Integration Testing'){
+                when{
+                    expression { deploy_to == "qa" }
+                }
+                steps{
+                    script{
+                        sh """
+                            echo "integration tests QA DEV environment"
+                        """
+                    }
+                }
+            }
+            stage('E2E Testing'){
+                when{
+                    expression { deploy_to == "uat" }
+                }
+                steps{
+                    script{
+                        sh """
+                            echo "e2e tests UAT environment"
+                        """
+                    }
+                }
+            }
+            stage('PROD Process'){
+                when{
+                    expression { deploy_to == "prod" }
+                }
+                steps{
+                    script{
+                        sh """ 
+                            echo "received CR ticket id"
+                            echo "e2e tests UAT environment"
+                        """
+                    }
+                }
             }    
         }
 

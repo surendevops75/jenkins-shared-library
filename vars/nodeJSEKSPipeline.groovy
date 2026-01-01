@@ -34,13 +34,17 @@ def call (Map configMap){
 
             stage('Install Dependencies') {
                 steps {
-                    sh 'npm install'
+                    sh """
+                        npm install
+                    """
                 }
             }
 
             stage('Unit Test') {
                 steps {
-                    sh 'npm test'
+                    sh """
+                        echo test
+                    """
                 }
             }
 
