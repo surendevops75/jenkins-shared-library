@@ -92,6 +92,9 @@ Developer → GitHub → Jenkins Shared Library → Build/Test → Docker Build 
 
 👨‍💻 Author
 
-Surendra DevOps Engineer
+Surendra 
+DevOps Engineer
+
+---
 
 ⭐ If you like this project, give it a star.
